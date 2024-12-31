@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Célébration de fin d'année 2024</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            color: #333;
+        }
+        header {
+            background-color: #ff6f61;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+        .countdown {
+            font-size: 2em;
+            margin: 20px 0;
+        }
+        .message {
+            font-size: 1.5em;
+            color: #4a4a4a;
+        }
+        footer {
+            background-color: #ff6f61;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    <script>
+        function updateCountdown() {
+            const targetDate = new Date('January 1, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('countdown').innerHTML = 
+                    `${days} jours ${hours} heures ${minutes} minutes ${seconds} secondes`;
+            } else {
+                document.getElementById('countdown').innerHTML = "Bonne Année 2025 ! 🎉";
+                window.location.href = "Annee.html"; // Redirige vers Annee.html
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+    </script>
+</head>
+<body>
+    <header>
+        <h1>🎉 Une nouvelle an dans peux🎉</h1>
+    </header>
+    <main>
+        <p class="message">Préparez-vous pour une nouvelle année pleine d'opportunités et de bonheur !</p>
+        <div class="countdown" id="countdown"></div>
+    </main>
+    <footer>
+        &copy; 2024 - Une célébration spéciale pour accueillir 2025
+    </footer>
+</body>
+</html>
