@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year 2025</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 10%;
+            font-size: 4em;
+            color: #FFD700;
+            text-shadow: 0 0 20px #FFD700;
+        }
+
+        p {
+            margin-top: 2%;
+            font-size: 2em;
+            color: #FFD700;
+            text-shadow: 0 0 10px #FFD700;
+        }
+
+        canvas {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+    .animated-message {
+            position: absolute;
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 2em;
+    color: #FFD700;
+    text-shadow: 0 0 10px #FFD700;
+    animation: fadeMove 3s infinite;
+        }
+
+        @keyframes fadeMove {
+            0% { opacity: 0; transform: translateY(20px); }
+            50% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Bonne Année 2025 ! 🎉</h1>
+    <p>Je vous souhaite à tous une fête de fin d'année 2024</p>
+    <canvas id="fireworks"></canvas>
+
+    <script>
+        const canvas = document.getElementById("fireworks");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Firework {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 6;
+                this.speedY = (Math.random() - 0.5) * 6;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.03 + 0.01;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha -= this.decay;
+            }
+
+            draw() {
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+
+        let fireworks = [];
+
+        function createFireworks(x, y) {
+            const colors = ["#FF5733", "#FFD700", "#33FF57", "#33C3FF", "#C70039"];
+            for (let i = 0; i < 100; i++) {
+                fireworks.push(new Firework(x, y, colors[Math.floor(Math.random() * colors.length)]));
+            }
+        }
+
+        function randomFireworks() {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            createFireworks(x, y);
+        }
+
+        function displayMessage() {
+            const message = document.createElement("div");
+            message.innerText = "BONNE FETE DE  FIN D'ANNEE A TOUS 🎉🎉!";
+            message.classList.add("animated-message");
+            document.body.appendChild(message);
+        }
+
+        
+        function animate() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            fireworks.forEach((firework, index) => {
+                if (firework.alpha <= 0) {
+                    fireworks.splice(index, 1);
+                } else {
+                    firework.update();
+                    firework.draw();
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+
+        setInterval(randomFireworks, 800); // Automatically trigger fireworks every 800ms
+        displayMessage();
+       // displayMessages();
+        //displayMessagess();
+        animate();
+    </script>
+</body>
+</html>
